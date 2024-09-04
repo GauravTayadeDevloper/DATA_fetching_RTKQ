@@ -17,7 +17,7 @@ const OwnerRepoList: React.FC = () => {
         dispatch(toggleFavorite(repoId));
     };
 
-    // Filter the repositories based on the owner
+
     const filtered = repos.filter(repo => repo.owner.login === owner);
 
     return (
@@ -29,7 +29,7 @@ const OwnerRepoList: React.FC = () => {
                 <div>
                      {filtered.length > 0 && (
                     <img
-                        src={filtered[0].owner.avatar_url} // 
+                        src={filtered[0].owner.avatar_url}  
                         alt={`${owner}'s avatar`}
                         className="repo-owner-avatar"
                     />
