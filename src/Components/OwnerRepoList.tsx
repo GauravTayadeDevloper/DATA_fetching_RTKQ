@@ -11,34 +11,36 @@ const OwnerRepoList: React.FC = () => {
     const dispatch = useDispatch();
     const favorites = useSelector((state: RootState) => state.favorites);
     const { owner } = useParams();
-    const { data: repos = [], error, isLoading } = useFetchReposQuery();
+    const { data: repos = []} = useFetchReposQuery();
 
     const handleFavoriteToggle = (repoId: number) => {
         dispatch(toggleFavorite(repoId));
     };
 
+    // Filter the repositories based on the owner
     const filtered = repos.filter(repo => repo.owner.login === owner);
 
     return (
         <div>
-        <div>
-                <h1> { owner} all Repositories </h1>
-        </div>
-        <div className="container">
-            
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>Error: {error.toString()}</p>
-            ) : (
-                filtered.map((repo) => (
+            <div className="Owner-name">
+                <div  className="Owner-name1">
+                     <h1>{owner} all Repositories</h1>
+                </div>
+                <div>
+                     {filtered.length > 0 && (
+                    <img
+                        src={filtered[0].owner.avatar_url} // 
+                        alt={`${owner}'s avatar`}
+                        className="repo-owner-avatar"
+                    />
+                )}
+               </div>
+               
+            </div>
+            <div className="container">
+                {filtered.map((repo) => (
                     <div className="card_item" key={repo.id}>
                         <div className="card_inner">
-                            <img
-                                src={repo.owner.avatar_url}
-                                alt={`${repo.owner.login}'s avatar`}
-                                className="repo-owner-avatar"
-                            />
                             <div className="repo-details">
                                 <h3 className="repoName">
                                     <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
@@ -63,10 +65,9 @@ const OwnerRepoList: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                ))
-            )}
+                ))}
             </div>
-            </div>
+        </div>
     );
 };
 
