@@ -20,7 +20,12 @@ const OwnerRepoList: React.FC = () => {
     const filtered = repos.filter(repo => repo.owner.login === owner);
 
     return (
+        <div>
+        <div>
+                <h1> { owner} all Repositories </h1>
+        </div>
         <div className="container">
+            
             {isLoading ? (
                 <p>Loading...</p>
             ) : error ? (
@@ -60,7 +65,8 @@ const OwnerRepoList: React.FC = () => {
                     </div>
                 ))
             )}
-        </div>
+            </div>
+            </div>
     );
 };
 
